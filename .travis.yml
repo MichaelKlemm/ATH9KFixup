@@ -1,0 +1,22 @@
+language: cpp
+
+matrix:
+  include:
+  - os: osx
+    compiler: clang
+
+    script:
+      - xcodebuild -configuration Debug
+      - xcodebuild -configuration Release
+      - xcodebuild analyze -quiet -configuration Debug CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR="$(pwd)/clang-analyze" && [ "$(find clang-analyze -name "*.html")" = "" ]
+      - xcodebuild analyze -quiet -configuration Release CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR="$(pwd)/clang-analyze" && [ "$(find clang-analyze -name "*.html")" = "" ]
+
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: Ka3BfsvGbDWuQeG1/V+/XLnR0aFhn3lCPovc61pMYG1vm4xPlQ64OQacjkhKDPbqzkpX94Ri6aj9Dc8pwzpsd1423SosV9QOijZe6kZUFiE+5T/lhgtZ7bCXLjzeLGMwflXKcF5zdodSxEOTj9uc8l7GJPJHoYDAr12NKBOzZuhuyT2zyno8ZACKzNe3TA926e1vIpWTHgIHmG37pHBiINWQRxprzHlMn+icNC1FZBSVqEIMowZM2FXK0yXkOwW5EiRfyNo90FRvDGRnCEw3474GwleiytlluOP2zUCTao2J9x8LGMJd2PxTkdUxd/Xox//eoZQ2xuOwppDi6ux1eNQhfB8xMEX2syIBj1UpFEsJhh5mGrx/PQXvSTTefroMk9yDfQFxYXeJFa3nHXAXKIq9jm1Vl6vvsjLodfUVhKi9MrTr/HVGj9fpEpFIAwoxQvzt12aYjcHBR6+qW/ZQf5W9A5S8uNcSBx9sJfIG7iGiH+H4sBRNNm6dzdoUlz6sGL+taVUwUnaX1WLZCk2bZ8jKwReKcaL/tQguKyzkwmvqHH8NGQwdddwntbP5/FzcuFvPeruja2lnujXNkoufLbpxcE9J62qqzwkSEDoYf2cLp10VJmThmcM2g01cLHalzS8McOvjB/xFcDoJGhBj62PP07X3CGunWxu/PWFOiXQ=
+      file: build/*/*
+      file_glob: true
+      on:
+        repo: MichaelKlemm/ATH9KFixup
