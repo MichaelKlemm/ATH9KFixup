@@ -224,7 +224,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd \"${TARGET_BUILD_DIR}\"\n\ndist=(\"$FULL_PRODUCT_NAME\")\nif [ -d \"$DWARF_DSYM_FILE_NAME\" ]; then dist+=(\"$DWARF_DSYM_FILE_NAME\"); fi\n\narchive=\"${MODULE_VERSION} ($(echo $CONFIGURATION | tr /a-z/ /A-Z/)).zip\"\nrm -rf *.zip\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\n  strip -x -T \"${EXECUTABLE_PATH}\" &>/dev/null || strip -x \"${EXECUTABLE_PATH}\"\nfi\nzip -qry \"${archive}\" \"${dist[@]}\"";
+			shellScript = "cp -r \"ATH9KInjector.kext\" \"${TARGET_BUILD_DIR}\"\ncd \"${TARGET_BUILD_DIR}\"\n\ndist=(\"$FULL_PRODUCT_NAME\" \"ATH9KInjector.kext\")\nif [ -d \"$DWARF_DSYM_FILE_NAME\" ]; then dist+=(\"$DWARF_DSYM_FILE_NAME\"); fi\n\narchive=\"${MODULE_VERSION} ($(echo $CONFIGURATION | tr /a-z/ /A-Z/)).zip\"\nrm -rf *.zip\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\n  strip -x -T \"${EXECUTABLE_PATH}\" &>/dev/null || strip -x \"${EXECUTABLE_PATH}\"\nfi\nzip -qry \"${archive}\" \"${dist[@]}\"";
 		};
 		CE3CFAEF1E509A7800336BF6 /* Copy SDK */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -363,8 +363,8 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = com.chunnann.ATH9KFixup;
-				MODULE_START = "$(PRODUCT_NAME)_kern_start";
-				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_START = kern_start;
+				MODULE_STOP = kern_stop;
 				MODULE_VERSION = 1.2.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
@@ -379,7 +379,7 @@
 					"-fno-asynchronous-unwind-tables",
 				);
 				OTHER_LDFLAGS = "-static";
-				PRODUCT_BUNDLE_IDENTIFIER = com.chunnann.ATH9KFixup;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MODULE_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
