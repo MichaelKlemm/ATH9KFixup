@@ -176,7 +176,7 @@
 			dependencies = (
 			);
 			name = ATH9KFixup;
-			productName = NvidiaGraphicsFixup;
+			productName = ATH9KFixup;
 			productReference = 1C748C271C21952C0024EED2 /* ATH9KFixup.kext */;
 			productType = "com.apple.product-type.kernel-extension";
 		};
@@ -407,8 +407,8 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MODULE_NAME = com.chunnann.ATH9KFixup;
-				MODULE_START = "$(PRODUCT_NAME)_kern_start";
-				MODULE_STOP = "$(PRODUCT_NAME)_kern_stop";
+				MODULE_START = kern_start;
+				MODULE_STOP = kern_stop;
 				MODULE_VERSION = 1.2.0;
 				OTHER_CFLAGS = (
 					"-mmmx",
@@ -423,7 +423,7 @@
 					"-fno-asynchronous-unwind-tables",
 				);
 				OTHER_LDFLAGS = "-static";
-				PRODUCT_BUNDLE_IDENTIFIER = com.chunnann.ATH9KFixup;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(MODULE_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_STYLE = "non-global";
 				WRAPPER_EXTENSION = kext;
